@@ -16,59 +16,76 @@ To analyze how APIs behave under normal, invalid, and manipulated inputs, and to
 
 Tested endpoints include:
 
-- Products
-- Users
-- Carts
-- Authentication
+- Products  
+- Users  
+- Carts  
+- Authentication  
+
+---
+
+## Testing Approach
+
+- Designed structured test scenarios across functional, validation, negative, and security layers  
+- Used Postman test scripts to automate response validation  
+- Applied parameter tampering and input manipulation to evaluate system behavior  
+- Performed request chaining to simulate real-world API workflows  
+- Analyzed API responses to identify inconsistencies and validation gaps  
 
 ---
 
 ## Testing Coverage
 
 ### Functional Testing
-- Verified core API operations across all major endpoints
-- Validated expected responses for standard use cases
+- Verified core API operations across all major endpoints  
+- Validated expected responses for standard use cases  
 
 ### Validation & Schema Testing
-- Checked response structure and required fields
-- Verified data types and consistency across responses
+- Checked response structure and required fields  
+- Verified data types and consistency across responses  
 
 ### Negative & Edge Case Testing
-- Tested invalid inputs (IDs, missing fields, incorrect data types)
-- Evaluated boundary conditions and edge scenarios
+- Tested invalid inputs (IDs, missing fields, incorrect data types)  
+- Evaluated boundary conditions and edge scenarios  
 
 ### Authentication Testing
-- Validated behavior for valid and invalid login attempts
-- Verified token generation and response structure
+- Validated login behavior for valid and invalid credentials  
+- Verified token generation and response structure  
 
 ### Security Testing
-- SQL Injection attempts
-- Script and HTML injection
-- Parameter tampering (userId, quantity, price)
-- Large payload handling
+- SQL Injection attempts  
+- Script and HTML injection  
+- Parameter tampering (userId, quantity, price)  
+- Large payload handling  
 
 ### Workflow Testing
-- Implemented request chaining using environment variables
-- Simulated flows such as Create → Fetch → Delete
+- Implemented request chaining using environment variables  
+- Simulated flows such as Create → Fetch → Delete  
+- Validated data flow between dependent API calls  
 
 ### Performance Checks
-- Basic response time validation
-- Consistency checks across multiple requests
+- Performed basic response time validation  
+- Observed consistency across multiple API requests  
 
 ---
 
 ## Key Findings
 
-- API accepts invalid data types without proper validation  
-- Missing fields are not consistently validated  
-- Weak error handling observed in some endpoints  
-- No strict validation for edge-case inputs  
-- Authentication returns token only for valid credentials  
-- Successful login returns HTTP 201 instead of standard 200  
-- Login endpoint deviates from REST conventions by returning 201  
-- No major latency spikes observed during testing  
-- Performance is stable under basic testing conditions  
-- No rate limiting observed across endpoints  
+- API lacks strict input validation, allowing invalid data types to be accepted  
+- Missing required fields are not consistently validated across endpoints  
+- Error handling is inconsistent and does not provide standardized responses  
+- API accepts edge-case inputs (negative values, malformed data) without rejection  
+- Authentication endpoint deviates from REST standards by returning HTTP 201 instead of 200  
+- No validation for tampered parameters such as userId, indicating potential authorization risks  
+- No rate limiting observed, making endpoints potentially vulnerable to abuse  
+- Performance remained stable under basic testing, with no major latency spikes observed  
+
+---
+
+## Security Observations
+
+- Lack of input validation increases risk of injection-based attacks  
+- Absence of parameter validation may allow unauthorized data manipulation  
+- Inconsistent validation logic across endpoints weakens API reliability  
 
 ---
 
@@ -81,8 +98,8 @@ Tested endpoints include:
 
 ## Limitations
 
-- FakeStore API does not fully persist created data  
-- Some validations cannot be confirmed due to mock behavior  
+- FakeStore API is a mock API and does not fully persist created data  
+- Some validations could not be fully verified due to API limitations  
 
 ---
 
@@ -93,12 +110,12 @@ This project demonstrates the ability to:
 - Test APIs beyond basic functionality  
 - Identify validation gaps and inconsistent behavior  
 - Analyze API responses under edge and manipulated conditions  
-- Understand practical limitations of API testing tools and environments  
+- Apply a security-focused approach to API testing  
 
 ---
 
 ## Future Improvements
 
-- Integrate automated execution using Newman  
+- Automate execution using Newman  
 - Perform load testing using tools such as k6 or JMeter  
 - Expand testing using OWASP API Security Top 10 scenarios  
